@@ -1,0 +1,46 @@
+function setup() {
+  createCanvas(800, 450);
+  noStroke();
+  frameRate(8);
+  background(220);
+  rArray = [];
+  bArray = [];
+  gArray = [];
+  y = 0;
+  start = 0;
+  //make lists of colors
+  for(l=0; l<=35;l++){
+    rArray.push(random(150,255));
+    gArray.push(random(100,220));
+    bArray.push(random(150,255));
+  }
+}
+function draw(){
+  //loop through twice to make circles overlap
+  for(a=0; a<=1;a++){
+    //randomize color in second iteration
+    y=random(0,(a*35));
+    //offset circles in second iteration
+    start = a*20;
+    //move circles from left to right
+    for(i=-440; i<=800;i+=40){
+      //loop through color arrays in first iteration
+      fill(rArray[y],gArray[y],bArray[y]);
+      if(a==0){
+        y++;
+      }
+      //loop circles diagonally
+      for(x=start; x<=480;x+=40){ 
+        ellipse(i+x,x,30+(a*12));
+      }
+    }
+  }
+//change colors with mouse press
+  if(mouseIsPressed){
+    for(r=0; r<=100;r++){
+      rArray[r]=random(150,255);
+      gArray[r]=random(100,255);
+      bArray[r]=random(150,255);
+    }
+  }
+}
