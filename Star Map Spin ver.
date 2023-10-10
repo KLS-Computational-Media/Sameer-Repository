@@ -1,0 +1,40 @@
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  starX = [];
+  starY = [];
+  starSz = [];
+  noStroke();
+}
+
+function draw() {
+  background(20);
+  fill(240);
+  s = millis() / 1000000;
+  for (i = 0; i < 400; i++) {
+    starX.push(random(-windowWidth, windowWidth));
+    starY.push(random(-windowHeight, windowHeight));
+    starSz.push(random(1, 5));
+  }
+  starX.push(random(-windowWidth, windowWidth));
+  starY.push(random(-windowHeight, windowHeight));
+  starSz.push(30);
+
+  for (j = 0; j <= 400; j++) {
+    rotate(s);
+    if (starSz[j] == 30) {
+      fill(200, 100, 50);
+      ellipse(starX[j], starY[j], starSz[j]);
+      fill(240);
+    } else {
+      ellipse(starX[j], starY[j], starSz[j]);
+    }/*if (
+      abs(starX[400]) + 30>= mouseX&&mouseX >= abs(starX[400]) - 30 &&
+      abs(starY[400]) + 80 >= mouseY&&mouseY >= abs(starY[400]) - 80
+    ) {
+      print (true);
+    }*/
+  }
+  //if (mouseIsPressed) {
+    
+  //}
+}
