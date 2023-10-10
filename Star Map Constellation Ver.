@@ -1,0 +1,70 @@
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  //star values for mapping
+  starX = [];
+  starY = [];
+  starSz = [];
+  strokeWeight(2);
+  noStroke();
+  frameRate(4);
+  //hold line positions for contellations
+  linXa = [];
+  linYa = [];
+  linXb = [];
+  linYb = [];
+  isLine = false;
+}
+
+function draw() {
+  background(20);
+  fill(240);
+  //make drawn constellations
+  for (l = 0; l < linXb.length; l++) {
+    push();
+    stroke(240);
+    line(linXa[l], linYa[l], linXb[l], linYb[l]);
+    pop();
+  }
+  //generate star list
+  for (i = 0; i < 150; i++) {
+    starX.push(random(0, windowWidth));
+    starY.push(random(0, windowHeight));
+    starSz.push(random(1, 5));
+  }
+  //add mars to star list
+  starX.push(random(0, windowWidth));
+  starY.push(random(0, windowHeight));
+  starSz.push(30);
+  //draw stars
+  for (j = 0; j <= 150; j++) {
+    if (starSz[j] == 30) {
+      fill(200, 100, 50);
+      ellipse(starX[j], starY[j], starSz[j]);
+      fill(240);
+    } else {
+      ellipse(starX[j], starY[j], starSz[j]);
+    }
+  }
+  //make constellations with mouse
+  if (mouseIsPressed) {
+    for (k = 0; k <= 150; k++) {
+      if (
+        mouseX >= starX[k] - 5 &&
+        mouseX <= starX[k] + 5 &&
+        mouseY >= starY[k] - 5 &&
+        mouseY <= starY[k] + 5
+      ) {
+        if (!isLine) {
+          linXa.push(starX[k]);
+          linYa.push(starY[k]);
+          isLine = true;
+        } else if (isLine) {
+          linXb.push(starX[k]);
+          linYb.push(starY[k]);
+          print(true);
+          isLine = false;
+        }
+      }
+    }
+  }
+}
