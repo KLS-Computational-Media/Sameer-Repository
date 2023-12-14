@@ -1,0 +1,67 @@
+//play around with sliders to change rotation of branches, number of branches and number of trees
+let sliderA;
+let sliderB;
+let sliderC;
+let col;
+let noCol = false;
+let g;
+let val;
+let rot;
+let det;
+function setup() {
+  createCanvas(400, 400);
+  //first slider: number of "trees"
+  sliderA = createSlider(0, 24, 6);
+  sliderA.position(10, 400);
+  sliderA.style("width", "80px");
+  //second slider: rotation for each "branch"
+  sliderB = createSlider(PI / 40, (3 * PI) / 4, PI / 6, PI / 40);
+  sliderB.position(110, 400);
+  sliderB.style("width", "80px");
+  //third slider: number of "branches"
+  sliderC = createSlider(2, 25, 21);
+  sliderC.position(210, 400);
+  sliderC.style("width", "80px");
+  g = 30;
+}
+
+function draw() {
+  background(20);
+  //set values based on sliders
+  val = sliderA.value();
+  rot = sliderB.value();
+  det = sliderC.value();
+  //color
+  col = 125;
+  translate(200, height / 2);
+  //rotate(millis()/10000);
+  for (i = 0; i <= val; i++) {
+    //create new branches recursively
+    slay(70, col);
+    //rotate to show each different branch from first slider
+    rotate(PI / (val / 2));
+  }
+}
+function slay(len, r) {
+  //change branch color based on direction
+  stroke(255 - r / 2, len * 3, r / 4 + 80);
+  //draw new branch
+  line(0, 0, 0, -len);
+  //changes number of branches based on first slider
+  if (len >= -det + 27) {
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated to the right based on second slider
+    rotate(rot);
+    slay(len * 0.67, r - g / 2);
+    pop();
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated to the left based on second slider
+    rotate(-rot);
+    slay(len * 0.67, r + g * 2);
+    pop();
+  }
+}
