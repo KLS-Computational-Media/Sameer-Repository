@@ -1,0 +1,53 @@
+// use mouse to draw new image
+let img;
+let img2;
+let cnv;
+function preload() {
+  //preload both images
+  img = loadImage("dua lipa.png");
+  img2 = loadImage("dula peep.jpg");
+}
+function setup() {
+  //make canvas based on image size and move it to the middle of the window
+  cnv = createCanvas(img.width, img.height);
+  let newCanvasX = (windowWidth - img.width) / 2;
+  let newCanvasY = (windowHeight - img.height) / 2;
+
+  cnv.position(newCanvasX, newCanvasY);
+
+  for (let col = 0; col < img.width; col += 2) {
+    for (let row = 0; row < img.height; row += 2) {
+      let posX = col;
+      let posY = row;
+      //get each section of the initial image
+      let c = img.get(posX, posY);
+
+      push();
+      translate(posX, posY);
+      //color each circle
+      strokeWeight(random(5));
+      stroke(color(c));
+      fill(color(c));
+      //draw each circle
+      ellipse(
+        sin(posX) * random(10),
+        cos(posY) * sin(posX) * random(10),
+        random(3, 6),
+        random(3, 6),
+        int(cos(posY) * sin(posX) * random(10))
+      );
+
+      pop();
+    }
+  }
+}
+function draw() {
+  noStroke();
+  var x = mouseX;
+  var y = mouseY;
+  //draw second image based on mouse position
+  let g = img2.get(x, y);
+  fill(color(g));
+  ellipse(x, y, random(4, 10), random(4, 10));
+}
+// search up dua lipa dance meme for cultural context
