@@ -1,0 +1,52 @@
+let angle = 0;
+let detailY=0;
+let detailX=0;
+function setup() {
+  //make sliders for detail
+  createCanvas(400, 400, WEBGL);
+  detailY = createSlider(4, 16, 15);
+  detailY.position(200, height + 5);
+  detailY.style('width', '80px');
+  detailX = createSlider(4, 16, 15);
+  detailX.position(100, height + 5);
+  detailX.style('width', '80px');
+}
+function draw() {
+  // move your mouse to change light position
+  let locX = mouseX - width / 2;
+  let locY = mouseY - height / 2;
+  pointLight(250, 250, 250, locX, locY, 20);
+  ambientLight(150);
+  background(80,30,100);
+  noStroke();
+  //floor
+  push();
+  translate(0,150);
+  ambientMaterial(50,200,100);
+  fill(50,150,100);
+  box(400,100,0);
+  pop();
+  //pumpkin body
+  ambientMaterial(200,110,20);
+  fill(200,110,20);
+  fill(200,110,20);
+  rotateX(PI)
+  rotateY(angle*2);
+  push();
+  rotateY(PI/2);
+  fill(200,110,20);
+  torus(100,40,detailX.value(),detailY.value());
+  rotateY(-PI/4);
+  torus(100,40,detailX.value(),detailY.value());
+  rotateY(PI/2);
+  torus(100,40,detailX.value(),detailY.value());
+  pop();
+  torus(100,40,detailX.value(),detailY.value());
+  translate(0,120);
+  fill(100,70,40);
+  //stem
+  ambientMaterial(100,70,40);
+  cylinder(25,100,detailX.value(),detailY.value());
+  //rotate everything
+  angle +=0.03;
+}
