@@ -1,0 +1,149 @@
+//play around with sliders to change rotation of donut branches, number of branches and rotation of the whole object
+//press any key to re-randomize background
+let sliderA;
+let sliderB;
+let sliderC;
+let col;
+let noCol = false;
+let g;
+let val;
+let rot;
+let det;
+function setup() {
+  createCanvas(400, 400, WEBGL);
+  //first slider: number of donut"trees"
+  sliderA = createSlider(0, 24, 12, 4);
+  sliderA.position(10, 20);
+  sliderA.style("width", "80px");
+  //second slider: rotation for each donut "branch"
+  sliderB = createSlider(PI / 40, (3 * PI) / 4, 0,PI / 16);
+  sliderB.position(110, 20);
+  sliderB.style("width", "80px");
+  //third slider: rotation of the whole figure
+  sliderC = createSlider(0, 2 * PI, 0, PI / 16);
+  sliderC.position(210, 20);
+  sliderC.style("width", "80px");
+  g = 30;
+  noStroke();
+  frameRate(16);
+  rArray = [];
+  bArray = [];
+  gArray = [];
+  y = 0;
+  start = 0;
+  //make lists of colors for the background
+  for (l = 0; l <= 100; l++) {
+    rArray[l] = random(200, 300);
+    gArray[l] = random(160, 220);
+    bArray[l] = random(230, 405);
+  }
+}
+
+function draw() {
+  push();
+  background(20);
+  //set values based on sliders
+  val = sliderA.value();
+  rot = sliderB.value();
+  det = sliderC.value();
+  //sets color of donuts
+  col = 350;
+  rotateY(det);
+  rectMode(CENTER);
+  push();
+  for (i = 0; i <= val; i++) {
+    //offset branches
+    rotate(PI / (val / 2));
+    //create new branches recursively at various angles
+    if (i % 2 == 0) {
+      rotateX(PI / (val / 2));
+      recur(70, col);
+      rotateX(-PI / (val / 2));
+
+      rotateX(-PI / (val / 2));
+      recur(70, col);
+      rotateX(PI / (val / 2));
+    } else {
+       recur(70, col);
+    }
+  }
+  pop();
+  pop();
+  push();
+  translate(-600, -400, -200);
+  //loops through twice to make circles overlap
+  for (a = 0; a <= 1; a++) {
+    //reset color lists
+    if (a == 0) {
+      y = 0;
+    }
+    //offset circles in second iteration
+    start = a * 20;
+    //move circles from left to right
+    for (i = -440; i <= 800; i += 40) {
+      //loop through color arrays
+      fill(rArray[y], gArray[y], bArray[y]);
+      if (a == 0) {
+        y++;
+      }
+      //loop circles diagonally
+      for (x = start; x <= 980; x += 40) {
+        ellipse(i + x, x, 40 + a * 4);
+      }
+    }
+  }
+  //change colors with mouse press
+  if (keyIsPressed) {
+    for (r = 0; r <= 100; r++) {
+      rArray[r] = random(200, 300);
+      gArray[r] = random(160, 220);
+      bArray[r] = random(230, 405);
+    }
+  }
+  pop();
+}
+//function for making recursive donuts
+function recur(len, r) {
+  //change branch color based on direction
+  noStroke();
+  fill(355 - r / 2 + 50, len * 2 + 100, r / 4 + 190);
+  //draw new donut
+  torus(len / 2, len / 4, 12, 5);
+  push();
+  pop();
+  //changes number of donut branches based on first slider
+  if (len >= 40) {
+  //draw each donut for a branch
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated based on second slider
+    rotateY(rot);
+    recur(len * 0.67, r + g * 2);
+    pop();
+
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated to based on second slider
+    rotateY(-rot);
+    recur(len * 0.67, r - g * 2);
+    pop();
+
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated based on second slider
+    rotateX(-rot);
+    recur(len * 0.67, r + g * 2);
+    pop();
+
+    push();
+    //move back to origin point after drawing branch
+    translate(0, -len);
+    //make new branch rotated to based on second slider
+    rotateX(rot);
+    recur(len * 0.67, r - g * 2);
+    pop();
+  }
+}
