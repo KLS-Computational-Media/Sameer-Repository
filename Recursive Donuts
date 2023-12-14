@@ -1,5 +1,6 @@
 //play around with sliders to change rotation of donut branches, number of branches and rotation of the whole object
 //press any key to re-randomize background
+//⚠️PLEASE DO NOT HOLD KEYS IF YOU ARE SENSITIVE TO FLASHING LIGHTS⚠️
 let sliderA;
 let sliderB;
 let sliderC;
