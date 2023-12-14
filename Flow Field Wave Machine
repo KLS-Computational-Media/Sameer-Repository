@@ -1,0 +1,49 @@
+var points = [];
+var c = [];
+var a = [];
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  frameRate(60);
+  //number between each point
+  var density = 40;
+
+  //distance between each point
+  var space = width / density;
+  //initial opacity
+  o=40;
+  // starting points
+  for (var x = -50; x < width + 50; x += space) {
+    for (var y = -50; y < height + 50; y += space) {
+      //vector for each x and y
+      var p = createVector(x, y);
+      //add vector points to the points array
+      points.push(p);
+      //red value for each point
+      r = random(180, 220);
+      //green value for each point
+      g = random(r-60, r+20);
+      //blue value for each point
+      b = random(g, g+10);
+      //store color values
+      var v = createVector(r, g, b);
+      c.push(v);
+      o+=0.1;
+      a.push(o);
+    }
+  }
+  background(220, 220, 220);
+  //starting opacity
+}
+function draw() {
+  noStroke();
+  for (var i = 0; i < points.length; i++) {
+    //increase and
+    fill(c[i].x, c[i].y, c[i].z, a[i]);
+    fc = frameCount * 60 + 800;
+    xl = points[i].x / fc;
+    yl = points[i].y / fc;
+    var angle = map(noise(xl, yl), 0, 0.5, 0, 720);
+    points[i].add(createVector(cos(angle), sin(angle)));
+    ellipse(points[i].x, points[i].y, 40);
+  }
+}
