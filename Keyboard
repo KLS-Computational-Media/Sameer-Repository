@@ -1,0 +1,174 @@
+
+//click on piano to play it
+let x = 120;
+let y = 120;
+let z = 120;
+let c;
+let cs;
+let d;
+let ds;
+let e;
+let f;
+let fs;
+let g;
+let gs;
+let a;
+let as;
+let b;
+let img;
+function preload() {
+  //load sounds
+  img = loadImage("cupcakes.jpg")
+  c = loadSound("C.mp3");
+  cs = loadSound("CS.mp3");
+  d = loadSound("D.mp3");
+  ds = loadSound("DS.mp3");
+  e = loadSound("E.mp3");
+  f = loadSound("F.mp3");
+  fs = loadSound("FS.mp3");
+  g = loadSound("G.mp3");
+  gs = loadSound("GS.mp3");
+  a = loadSound("A.mp3");
+  as = loadSound("AS.mp3");
+  b = loadSound("B.mp3");
+}
+function setup() {
+  frameRate(10);
+  createCanvas(400, 400);
+}
+function draw() {
+  //changing background
+  background(x, y, z);
+  //draw white keys
+  for (t = 0; t <= 6; t++) {
+    fill(255);
+    rect(t * 40 + 50, 100, 40, 100);
+  }
+  //draw black keys
+  for (s = 0; s <= 5; s++) {
+    fill(0);
+    if (s == 2) {
+      s++;
+    }
+    rect(s * 40 + 80, 100, 20, 60);
+  }
+  //change background and play sound when key pressed
+  if (
+    mouseX >= 80 &&
+    mouseX <= 100 &&
+    mouseY >= 100 &&
+    mouseY <= 160 &&
+    mouseIsPressed
+  ) {
+    x -= 4
+    cs.play();
+  } else if (
+    mouseX >= 120 &&
+    mouseX <= 140 &&
+    mouseY >= 100 &&
+    mouseY <= 160 &&
+    mouseIsPressed
+  ) {
+    y -= 4
+    ds.play();
+  } else if (
+    mouseX >= 200 &&
+    mouseX <= 220 &&
+    mouseY >= 100 &&
+    mouseY <= 160 &&
+    mouseIsPressed
+  ) {
+    z -= 4
+    fs.play();
+  } else if (
+    mouseX >= 240 &&
+    mouseX <= 260 &&
+    mouseY >= 100 &&
+    mouseY <= 160 &&
+    mouseIsPressed
+  ) {
+    x -= 4
+    z -= 4
+    gs.play();
+  } else if (
+    mouseX >= 280 &&
+    mouseX <= 300 &&
+    mouseY >= 100 &&
+    mouseY <= 160 &&
+    mouseIsPressed
+  ) {
+    x -= 4
+    y -= 4
+    z -= 4
+    as.play();
+  } else if (
+    mouseX >= 50 &&
+    mouseX <= 90 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    y += 4
+    c.play();
+  } else if (
+    mouseX >= 90 &&
+    mouseX <= 130 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    z += 4
+    d.play();
+  } else if (
+    mouseX >= 130 &&
+    mouseX <= 170 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    y += 4
+    z += 4
+    e.play();
+  } else if (
+    mouseX >= 170 &&
+    mouseX <= 210 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    x += 4
+    y += 4
+    f.play();
+  } else if (
+    mouseX >= 210 &&
+    mouseX <= 250 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    x += 4
+    z += 4
+    g.play();
+  } else if (
+    mouseX >= 250 &&
+    mouseX <= 290 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    x += 4;
+    y += 4;
+    z += 4;
+    a.play();
+  } else if (
+    mouseX >= 290 &&
+    mouseX <= 330 &&
+    mouseY >= 100 &&
+    mouseY <= 200 &&
+    mouseIsPressed
+  ) {
+    x -= 4
+    y -= 4
+    b.play();
+  }
+}
